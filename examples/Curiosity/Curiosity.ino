@@ -9,6 +9,5 @@ void setup() {
 }
 
 void loop() {
-bot.obstaculos(15);  // Parametro de distancia maxima de deteccion
-bot.read_gamepad(true, vibrate); 
+bot.curiosity(); 
 }

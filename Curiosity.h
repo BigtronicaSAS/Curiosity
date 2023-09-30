@@ -25,6 +25,7 @@ class Bot : public Servo, public PS2X {
 	void servo(int angulo, int tiempo);
 	void inicio();
 	void obstaculos(int _distance);
+	void curiosity();
   private:
 	int MotorA_speed;
     int MotorA_direction;

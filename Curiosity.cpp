@@ -92,6 +92,16 @@ void Bot::servo(int angulo, int tiempo){
 
 
 void Bot::inicio(){
+  int error = 0; 
+  error = config_gamepad(pin_clock , pin_command, pin_attention, pin_data, true, true);
+  if(error == 0)
+  {
+    Serial.println("Controlador encontrado y configurado");
+  }
+  else
+  {
+    Serial.println("Error, mando no encontrado");
+  }
   servo(90, 1000);
   Serial.begin(9600);
 }
@@ -117,3 +127,48 @@ void Bot::obstaculos(int _distance){
     }
 }
 
+void Bot::curiosity(){
+  int temp;
+  byte vibrate = 0;
+  read_gamepad(false, vibrate); 
+  
+  if(Button(PSB_PAD_UP))
+  {
+    temp = Analog(PSAB_PAD_UP);    
+    adelante(255);
+    Serial.print("Presionaste el boton arriba: ");
+    Serial.println(temp);
+  }
+  
+  else if(Button(PSB_PAD_RIGHT))
+  {
+    temp = Analog(PSAB_PAD_RIGHT);
+    girar_derecha(255);
+    Serial.print("Presionaste el boton derecha: ");
+    Serial.println(temp);
+  }
+  
+  else if(Button(PSB_PAD_LEFT))
+  {
+    temp = Analog(PSAB_PAD_LEFT);
+    girar_izquierda(255);
+    Serial.print("Presionaste el boton izquierda: ");
+    Serial.println(temp);    
+  }
+  
+  else if(Button(PSB_PAD_DOWN))
+  {
+    temp = Analog(PSAB_PAD_DOWN);
+    atras(255);
+    Serial.print("Presionaste el boton abajo: ");
+    Serial.println(temp);    
+   
+  }
+
+  else
+  {
+   parar();
+  }
+  
+  delay(50);
+};
