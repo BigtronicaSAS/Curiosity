@@ -30,16 +30,16 @@ Bot::Bot(){
 
 void Bot::girar_derecha(int velocidad){
 
-  digitalWrite(MotorA_direction, HIGH);
-  digitalWrite(MotorB_direction, LOW);
+    digitalWrite(MotorA_direction, LOW);
+  digitalWrite(MotorB_direction, HIGH);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
 	
 }
 
 void Bot::girar_izquierda(int velocidad){
-  digitalWrite(MotorA_direction, LOW);
-  digitalWrite(MotorB_direction, HIGH);
+  digitalWrite(MotorA_direction, HIGH);
+  digitalWrite(MotorB_direction, LOW);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
 }
