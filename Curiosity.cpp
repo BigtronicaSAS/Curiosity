@@ -4,6 +4,10 @@
 
 
 Bot::Bot(){
+  pin_clock = A3; //Pin Clock
+  pin_command = A1; // Pin comando
+  pin_attention = A0; // Pin Atencion
+  pin_data = A2; // Pin Data 
   pin_echo = 8;
   pin_trigger = 7;
   pin_buzzer = 4;

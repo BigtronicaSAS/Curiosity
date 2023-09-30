@@ -32,7 +32,11 @@ class Bot : public Servo, public PS2X {
     int MotorB_direction;
 	int pin_echo;
 	int pin_trigger;
-	int pin_buzzer;  
+	int pin_buzzer;
+	int pin_clock;
+    int pin_command;
+    int pin_attention; 
+    int pin_data; 
 };
 
 #endif
