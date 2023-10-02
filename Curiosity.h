@@ -21,7 +21,7 @@ class Bot : public Servo, public PS2X {
 	void girar_izquierda(int velocidad);
 	void parar();
 	float detectar_obstaculo();
-	void pitar(int tiempo);
+	void pitar();
 	void servo(int angulo, int tiempo);
 	void inicio();
 	void obstaculos(int _distance);

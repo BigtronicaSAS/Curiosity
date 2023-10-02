@@ -30,7 +30,7 @@ Bot::Bot(){
 
 void Bot::girar_derecha(int velocidad){
 
-    digitalWrite(MotorA_direction, LOW);
+  digitalWrite(MotorA_direction, LOW);
   digitalWrite(MotorB_direction, HIGH);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
@@ -78,11 +78,11 @@ float Bot::detectar_obstaculo(){
 	
 }
 
-void Bot::pitar(int tiempo){
-	digitalWrite(pin_buzzer, HIGH);
-	delay(tiempo);
-	digitalWrite(pin_buzzer, LOW);
+void Bot::pitar() {
+  digitalWrite(pin_buzzer, Button(PSB_CIRCLE) ? HIGH : LOW);
 }
+
+
 
 void Bot::servo(int angulo, int tiempo){
   attach(9);
@@ -131,6 +131,7 @@ void Bot::curiosity(){
   int temp;
   byte vibrate = 0;
   read_gamepad(false, vibrate); 
+  pitar();
   
   if(Button(PSB_PAD_UP))
   {
@@ -154,8 +155,7 @@ void Bot::curiosity(){
     girar_izquierda(255);
     Serial.print("Presionaste el boton izquierda: ");
     Serial.println(temp);    
-  }
-  
+  } 
   else if(Button(PSB_PAD_DOWN))
   {
     temp = Analog(PSAB_PAD_DOWN);
