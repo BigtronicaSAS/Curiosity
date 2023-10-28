@@ -8,11 +8,10 @@
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-#include <Servo.h>
 #include "PS2X_lib.h"
 
 
-class Bot : public Servo, public PS2X {
+class Bot : public PS2X {
   public:
     Bot();
 	void adelante(int velocidad);
@@ -21,11 +20,9 @@ class Bot : public Servo, public PS2X {
 	void girar_izquierda(int velocidad);
 	void parar();
 	float detectar_obstaculo();
-	void pitar();
-	void servo(int angulo, int tiempo);
 	void setup();
-	void obstaculos(int _distance);
-	void curiosity();
+	void car();
+	void play();
   private:
 	int MotorA_speed;
     int MotorA_direction;

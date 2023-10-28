@@ -79,21 +79,9 @@ float Bot::detectar_obstaculo(){
 	
 }
 
-void Bot::pitar() {
-  digitalWrite(pin_buzzer, Button(PSB_CIRCLE) ? HIGH : LOW);
-}
-
-
-
-void Bot::servo(int angulo, int tiempo){
-  attach(9);
-  write(angulo);
-  delay(tiempo);
-}
-
-
 void Bot::setup(){
   int error = 0; 
+  
   error = config_gamepad(pin_clock , pin_command, pin_attention, pin_data, true, true);
   if(error == 0)
   {
@@ -106,63 +94,34 @@ void Bot::setup(){
   Serial.begin(9600);
 }
 
-
-void Bot::obstaculos(int _distance){
-  delay(50);
-  int distance = detectar_obstaculo();
-  if(distance < _distance){
-    parar();
-    servo(10, 600);
-    int servoReadRight = detectar_obstaculo();
-    servo(170, 600);
-    int servoReadLeft = detectar_obstaculo();
-    servo(90, 600);
-    if (servoReadLeft > servoReadRight) {
-        girar_izquierda(255);
-      } else {
-        girar_derecha(255);
-      }
-  } else if (distance >= _distance) {
-      adelante(255);
-    }
-}
-
-void Bot::curiosity(){
-  int temp;
+void Bot::play(){
   byte vibrate = 0;
   read_gamepad(false, vibrate); 
-  pitar();
-  
+};
+
+void Bot::car(){
+  int temp;
   if(Button(PSB_PAD_UP))
-  {
-    temp = Analog(PSAB_PAD_UP);    
+  {  
     adelante(255);
-    Serial.print("Presionaste el boton arriba: ");
-    Serial.println(temp);
+    Serial.print("adelante");
   }
   
   else if(Button(PSB_PAD_RIGHT))
   {
-    temp = Analog(PSAB_PAD_RIGHT);
     girar_derecha(255);
-    Serial.print("Presionaste el boton derecha: ");
-    Serial.println(temp);
+    Serial.print("derecha");
   }
   
   else if(Button(PSB_PAD_LEFT))
   {
-    temp = Analog(PSAB_PAD_LEFT);
     girar_izquierda(255);
-    Serial.print("Presionaste el boton izquierda: ");
-    Serial.println(temp);    
+    Serial.print("izquierda"); 
   } 
   else if(Button(PSB_PAD_DOWN))
   {
-    temp = Analog(PSAB_PAD_DOWN);
     atras(255);
-    Serial.print("Presionaste el boton abajo: ");
-    Serial.println(temp);    
-   
+    Serial.print("atras");
   }
 
   else
@@ -170,5 +129,9 @@ void Bot::curiosity(){
    parar();
   }
   
-  delay(50);
+  delay(15);
 };
+
+
+
+
