@@ -45,15 +45,16 @@ void Bot::girar_izquierda(int velocidad){
 }
 
 void Bot::adelante(int velocidad){
-  digitalWrite(MotorA_direction, HIGH);
-  digitalWrite(MotorB_direction, HIGH);
+  digitalWrite(MotorA_direction, LOW);
+  digitalWrite(MotorB_direction, LOW);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
+
 }
 
 void Bot::atras(int velocidad){
-  digitalWrite(MotorA_direction, LOW);
-  digitalWrite(MotorB_direction, LOW);
+  digitalWrite(MotorA_direction, HIGH);
+  digitalWrite(MotorB_direction, HIGH);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
 }
