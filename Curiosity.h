@@ -23,7 +23,7 @@ class Bot : public Servo, public PS2X {
 	float detectar_obstaculo();
 	void pitar();
 	void servo(int angulo, int tiempo);
-	void inicio();
+	void setup();
 	void obstaculos(int _distance);
 	void curiosity();
   private:

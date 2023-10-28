@@ -92,7 +92,7 @@ void Bot::servo(int angulo, int tiempo){
 }
 
 
-void Bot::inicio(){
+void Bot::setup(){
   int error = 0; 
   error = config_gamepad(pin_clock , pin_command, pin_attention, pin_data, true, true);
   if(error == 0)
@@ -103,7 +103,6 @@ void Bot::inicio(){
   {
     Serial.println("Error, mando no encontrado");
   }
-  servo(90, 1000);
   Serial.begin(9600);
 }
 
