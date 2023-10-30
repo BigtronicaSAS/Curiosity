@@ -20,7 +20,7 @@ void setup() {
   Serial.begin(9600);
 
   servoBase.attach(9);
-  servoHombro.attach(8);
+  servoHombro.attach(6);
   motor_3.attach(10);
   motor_4.attach(11);
   motor_5.attach(12);
@@ -33,8 +33,6 @@ void setup() {
 }
 
 void loop() {
-
-
   if (Serial.available() > 0) {
     bt_data = Serial.read();
     Serial.println(bt_data);
