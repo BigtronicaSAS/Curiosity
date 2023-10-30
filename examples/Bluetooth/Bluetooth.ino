@@ -4,32 +4,27 @@ Bot bot;
 
 Servo servoBase;
 Servo servoHombro;
-Servo motor_3;
-Servo motor_4;
-Servo motor_5;
+Servo servoCodo;
+Servo servoGarra;
+
 
 int servo1 = 70;
-int servo2 = 180;
-int servo3 = 40;
-int servo4 = 50;
-int servo5 = 90;
+int servo2 = 70;
+int servo3 = 60;
+int servo4 = 90;
 
 int bt_data;
 void setup() {
 
   Serial.begin(9600);
-
   servoBase.attach(9);
   servoHombro.attach(6);
-  motor_3.attach(10);
-  motor_4.attach(11);
-  motor_5.attach(12);
-
+  servoCodo.attach(5);
+  servoGarra.attach(2);
   servoBase.write(servo1);
   servoHombro.write(servo2);
-  motor_3.write(servo3);
-  motor_4.write(servo4);
-  motor_5.write(servo5);
+  servoCodo.write(servo3);
+  servoGarra.write(servo4);
 }
 
 void loop() {
@@ -81,42 +76,30 @@ void loop() {
   }
 
   else if (bt_data == 12) {
-    if (servo3 > 0) {
-      servo3 = servo3 - 1;
-    }
-    motor_3.write(servo3);
-  }
-  else if (bt_data == 13) {
     if (servo3 < 180) {
       servo3 = servo3 + 1;
     }
-    motor_3.write(servo3);
+    servoCodo.write(servo3);
+
   }
 
-  else if (bt_data == 14) {
-    if (servo4 < 180) {
-      servo4 = servo4 + 1;
+  else if (bt_data == 13) {
+    if (servo3 > 0) {
+      servo3 = servo3 - 1;
     }
-    motor_4.write(servo4);
+    servoCodo.write(servo3);
   }
-  else if (bt_data == 15) {
-    if (servo4 > 0) {
-      servo4 = servo4 - 1;
-    }
-    motor_4.write(servo4);
-  }
-
   else if (bt_data == 16) {
-    if (servo5 > 90) {
-      servo5 = servo5 - 1;     
+    if (servo4 > 90) {
+      servo4 = servo4 - 1;     
     }
-    motor_5.write(servo5);
+    servoGarra.write(servo4);
   }
   else if (bt_data == 17) {
-    if (servo5 < 150) {
-      servo5 = servo5 + 1;
+    if (servo4 < 150) {
+      servo4 = servo4 + 1;
     }
-    motor_5.write(servo5);
+    servoGarra.write(servo4);
   }
 
 }
