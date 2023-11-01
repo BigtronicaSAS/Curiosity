@@ -64,19 +64,45 @@ void Bot::parar(){
   analogWrite(MotorB_speed, 0);
 }
 
-float Bot::detectar_obstaculo(){
-	digitalWrite(pin_trigger, LOW);
-	delayMicroseconds(2);
-	digitalWrite(pin_trigger, HIGH);
-  delayMicroseconds(10);
-	float distancia = pulseIn(pin_echo, HIGH)*0.034/2;
-	Serial.println(distancia);
-	if (distancia == 0){
-		Serial.println("El sensor no esta conectado");
-	}else{
-		return distancia;		
-	}
-	
+float Bot::detectar_obstaculo() {
+  digitalWrite(pin_trigger, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pin_trigger, HIGH);
+  unsigned long tiempoInicio = micros();
+
+  while (digitalRead(pin_echo) == LOW) {
+    if (micros() - tiempoInicio > 10000) { // Esperar un máximo de 10 ms
+      Serial.println("Error: No se detectó el eco del sensor.");
+      return -1; // Valor de error
+    }
+  }
+
+  tiempoInicio = micros();
+  while (digitalRead(pin_echo) == HIGH) {
+    if (micros() - tiempoInicio > 10000) { // Esperar un máximo de 10 ms
+      Serial.println("Error: No se recibió el eco del sensor.");
+      return -1; // Valor de error
+    }
+  }
+
+  unsigned long tiempoDiferencia = micros() - tiempoInicio;
+  float distancia = (tiempoDiferencia / 2.0) * 0.0343; // Velocidad del sonido en el aire a 20 °C
+
+  if (distancia == 0) {
+    Serial.println("El sensor no está conectado.");
+  }
+
+  return distancia;
+}
+
+
+void Bot::obstaculos(int _distance){
+  int distance = detectar_obstaculo();
+  if(distance < _distance){
+     digitalWrite(pin_buzzer, HIGH);
+  } else if (distance >= _distance) {
+     digitalWrite(pin_buzzer, LOW);
+    }
 }
 
 void Bot::setup(){

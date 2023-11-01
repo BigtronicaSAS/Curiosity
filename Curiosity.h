@@ -20,6 +20,7 @@ class Bot : public PS2X {
 	void girar_izquierda(int velocidad);
 	void parar();
 	float detectar_obstaculo();
+	void obstaculos(int _distance);
 	void setup();
 	void car();
 	void play();

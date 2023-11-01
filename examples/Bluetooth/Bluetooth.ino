@@ -28,6 +28,7 @@ void setup() {
 }
 
 void loop() {
+  bot.obstaculos(10);
   if (Serial.available() > 0) {
     bt_data = Serial.read();
     Serial.println(bt_data);
