@@ -11,57 +11,46 @@ Bot::Bot(){
   pin_echo = 8;
   pin_trigger = 7;
   pin_buzzer = 4;
-  MotorA_speed = 10;
-  MotorA_direction = 12;
-  MotorB_speed = 11;
-  MotorB_direction = 13;
   Serial.begin(9600);
   pinMode(pin_echo, INPUT);
   pinMode(pin_trigger, OUTPUT);
   pinMode(pin_buzzer, OUTPUT);
-  pinMode(MotorA_direction , OUTPUT);
-  pinMode(MotorA_speed , OUTPUT);
-  pinMode(MotorB_speed ,OUTPUT);
-  pinMode(MotorB_direction , OUTPUT);
+ 
   digitalWrite(pin_trigger, LOW);
   digitalWrite(pin_buzzer, LOW);
 }
 
+void Bot::driver(const String &driverName){
+    if (driverName == "L298P") {
+        motorDriver = new L298PDriver();
+    } else if (driverName == "L298") {
+        motorDriver = new L298Driver();
+    } else if (driverName == "L293D") {
+        motorDriver = new L293DDriver();
+    } else {
+       Serial.println("Driver no encontrado");
+    }
+}
+
 
 void Bot::girar_derecha(int velocidad){
-
-  digitalWrite(MotorA_direction, LOW);
-  digitalWrite(MotorB_direction, HIGH);
-  analogWrite(MotorA_speed, (velocidad));
-  analogWrite(MotorB_speed, (velocidad));
-	
+ motorDriver->girar_derecha(velocidad);
 }
 
 void Bot::girar_izquierda(int velocidad){
-  digitalWrite(MotorA_direction, HIGH);
-  digitalWrite(MotorB_direction, LOW);
-  analogWrite(MotorA_speed, (velocidad));
-  analogWrite(MotorB_speed, (velocidad));
+  motorDriver->girar_izquierda(velocidad);
 }
 
 void Bot::adelante(int velocidad){
-  digitalWrite(MotorA_direction, LOW);
-  digitalWrite(MotorB_direction, LOW);
-  analogWrite(MotorA_speed, (velocidad));
-  analogWrite(MotorB_speed, (velocidad));
-
+ motorDriver->adelante(velocidad); 
 }
 
 void Bot::atras(int velocidad){
-  digitalWrite(MotorA_direction, HIGH);
-  digitalWrite(MotorB_direction, HIGH);
-  analogWrite(MotorA_speed, (velocidad));
-  analogWrite(MotorB_speed, (velocidad));
+ motorDriver->atras(velocidad); 
 }
 
 void Bot::parar(){
-  analogWrite(MotorA_speed, 0);
-  analogWrite(MotorB_speed, 0);
+ motorDriver->parar(); 
 }
 
 float Bot::detectar_obstaculo() {
