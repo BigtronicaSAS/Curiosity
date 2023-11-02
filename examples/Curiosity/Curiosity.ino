@@ -8,6 +8,7 @@ void setup() {
 }
 
 void loop() {
+bot.obstaculos(20); /*en rama dev*/
 bot.play();
 bot.car(); 
 }
