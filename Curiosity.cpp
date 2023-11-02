@@ -71,22 +71,22 @@ float Bot::detectar_obstaculo() {
   unsigned long tiempoInicio = micros();
 
   while (digitalRead(pin_echo) == LOW) {
-    if (micros() - tiempoInicio > 10000) { // Esperar un máximo de 10 ms
+    if (micros() - tiempoInicio > 10000) { 
       Serial.println("Error: No se detectó el eco del sensor.");
-      return -1; // Valor de error
+      return -1; 
     }
   }
 
   tiempoInicio = micros();
   while (digitalRead(pin_echo) == HIGH) {
-    if (micros() - tiempoInicio > 10000) { // Esperar un máximo de 10 ms
+    if (micros() - tiempoInicio > 10000) { 
       Serial.println("Error: No se recibió el eco del sensor.");
-      return -1; // Valor de error
+      return -1; 
     }
   }
 
   unsigned long tiempoDiferencia = micros() - tiempoInicio;
-  float distancia = (tiempoDiferencia / 2.0) * 0.0343; // Velocidad del sonido en el aire a 20 °C
+  float distancia = (tiempoDiferencia / 2.0) * 0.0343;
 
   if (distancia == 0) {
     Serial.println("El sensor no está conectado.");
