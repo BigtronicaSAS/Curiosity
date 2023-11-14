@@ -57,6 +57,7 @@ void Bot::atras(int velocidad){
   digitalWrite(MotorB_direction, HIGH);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
+
 }
 
 void Bot::parar(){

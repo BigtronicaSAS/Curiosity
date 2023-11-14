@@ -8,7 +8,7 @@ void setup() {
 }
 
 void loop() {
-bot.obstaculos(20);
+bot.obstaculos(10);
 bot.play();
 bot.car(); 
 }
