@@ -4,10 +4,6 @@
 
 
 Bot::Bot(){
-  pin_clock = A3; //Pin Clock
-  pin_command = A1; // Pin comando
-  pin_attention = A0; // Pin Atencion
-  pin_data = A2; // Pin Data 
   pin_echo = 8;
   pin_trigger = 7;
   pin_buzzer = 4;
@@ -25,6 +21,11 @@ Bot::Bot(){
   pinMode(MotorB_direction , OUTPUT);
   digitalWrite(pin_trigger, LOW);
   digitalWrite(pin_buzzer, LOW);
+}
+void Bot::configSeguidor(int Right, int Center, int Left){
+  pinMode(Right, INPUT);
+  pinMode(Center, INPUT);
+  pinMode(Left, INPUT);
 }
 
 
@@ -49,7 +50,6 @@ void Bot::adelante(int velocidad){
   digitalWrite(MotorB_direction, LOW);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
-
 }
 
 void Bot::atras(int velocidad){
@@ -106,7 +106,7 @@ void Bot::obstaculos(int _distance){
     }
 }
 
-void Bot::setup(){
+void Bot::controlPS2(int pin_clock , int pin_command, int pin_attention, int pin_data){
   int error = 0; 
   
   error = config_gamepad(pin_clock , pin_command, pin_attention, pin_data, true, true);
@@ -121,12 +121,9 @@ void Bot::setup(){
   Serial.begin(9600);
 }
 
-void Bot::play(){
+void Bot::carPS2(){
   byte vibrate = 0;
   read_gamepad(false, vibrate); 
-};
-
-void Bot::car(){
   int temp;
   if(Button(PSB_PAD_UP))
   {  
@@ -159,6 +156,35 @@ void Bot::car(){
   delay(15);
 };
 
+void Bot::seguidor(){
+  
+  bool IR_centro = digitalRead(Center);
+  bool IR_izquierda = digitalRead(Left);
+  bool IR_derecha = digitalRead(Right)
+  Serial.print(IR_izquierda);
+  Serial.print(IR_centro);
+  Serial.print(IR_derecha);
+  Serial.println("");
+  
+if ((IR_izquierda == 0) && (IR_centro == 1) && (IR_derecha == 0)){
+  adelante(255);
+}
+
+else if ((IR_izquierda == 1) && (IR_centro == 1) && (IR_derecha == 0)){
+  girar_izquierda(255);
+}
+
+else if ((IR_izquierda == 0) && (IR_centro == 1) && (IR_derecha == 1)){
+  girar_derecha(255);
+}
+else if ((IR_izquierda == 0) && (IR_centro == 0) && (IR_derecha == 1)){
+  girar_derecha(255);
+}
+else ((IR_izquierda == 1) && (IR_centro == 1) && (IR_derecha == 1)){
+  parar();
+}
+
+}
 
 
 

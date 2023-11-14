@@ -14,6 +14,8 @@
 class Bot : public PS2X {
   public:
     Bot();
+	void configSeguidor(int Right, int Center, int Left);
+	void seguidor();
 	void adelante(int velocidad);
 	void atras(int velocidad);
 	void girar_derecha(int velocidad);
@@ -21,9 +23,9 @@ class Bot : public PS2X {
 	void parar();
 	float detectar_obstaculo();
 	void obstaculos(int _distance);
-	void setup();
-	void car();
-	void play();
+	void controlPS2(int pin_clock , int pin_command, int pin_attention, int pin_data);
+	void carPS2();
+	
   private:
 	int MotorA_speed;
     int MotorA_direction;
@@ -32,10 +34,6 @@ class Bot : public PS2X {
 	int pin_echo;
 	int pin_trigger;
 	int pin_buzzer;
-	int pin_clock;
-    int pin_command;
-    int pin_attention; 
-    int pin_data; 
 };
 
 #endif
