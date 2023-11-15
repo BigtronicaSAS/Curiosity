@@ -120,31 +120,31 @@ void Bot::controlPS2(int pin_clock , int pin_command, int pin_attention, int pin
   Serial.begin(9600);
 }
 
-void Bot::carPS2(){
+void Bot::carPS2(int velocidad){
   byte vibrate = 0;
   read_gamepad(false, vibrate); 
   int temp;
   pitar();
   if(Button(PSB_PAD_UP))
   {  
-    adelante(255);
+    adelante(velocidad);
     Serial.print("adelante");
   }
   
   else if(Button(PSB_PAD_RIGHT))
   {
-    girar_derecha(255);
+    girar_derecha(velocidad);
     Serial.print("derecha");
   }
   
   else if(Button(PSB_PAD_LEFT))
   {
-    girar_izquierda(255);
+    girar_izquierda(velocidad);
     Serial.print("izquierda"); 
   } 
   else if(Button(PSB_PAD_DOWN))
   {
-    atras(255);
+    atras(velocidad);
     Serial.print("atras");
   }
 

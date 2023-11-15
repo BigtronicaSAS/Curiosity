@@ -24,7 +24,7 @@ class Bot : public PS2X {
 	float detectar_obstaculo();
 	void obstaculos(int _distance);
 	void controlPS2(int pin_clock , int pin_command, int pin_attention, int pin_data);
-	void carPS2();
+	void carPS2(int velocidad);
 	
   private:
 	int MotorA_speed;

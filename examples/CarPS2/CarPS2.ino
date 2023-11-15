@@ -3,6 +3,7 @@
 #define pin_command   A1
 #define pin_attention A0
 #define pin_data      A2
+#define Velocidad 255
 Bot bot;
 
 void setup() {
@@ -10,5 +11,5 @@ void setup() {
 }
 
 void loop() {
-bot.carPS2(); 
+bot.carPS2(Velocidad); 
 }
