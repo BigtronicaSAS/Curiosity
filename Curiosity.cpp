@@ -22,11 +22,6 @@ Bot::Bot(){
   digitalWrite(pin_trigger, LOW);
   digitalWrite(pin_buzzer, LOW);
 }
-void Bot::configSeguidor(int Right, int Center, int Left){
-  pinMode(Right, INPUT);
-  pinMode(Center, INPUT);
-  pinMode(Left, INPUT);
-}
 
 
 void Bot::girar_derecha(int velocidad){
@@ -43,6 +38,10 @@ void Bot::girar_izquierda(int velocidad){
   digitalWrite(MotorB_direction, LOW);
   analogWrite(MotorA_speed, (velocidad));
   analogWrite(MotorB_speed, (velocidad));
+}
+
+void Bot::pitar() {
+  digitalWrite(pin_buzzer, Button(PSB_CIRCLE) ? HIGH : LOW);
 }
 
 void Bot::adelante(int velocidad){
@@ -125,6 +124,7 @@ void Bot::carPS2(){
   byte vibrate = 0;
   read_gamepad(false, vibrate); 
   int temp;
+  pitar();
   if(Button(PSB_PAD_UP))
   {  
     adelante(255);
@@ -156,32 +156,45 @@ void Bot::carPS2(){
   delay(15);
 };
 
-void Bot::seguidor(){
-  
+void Bot::seguidor(int Left, int Center, int Right, int velocidad){
+  int blanco = 0;
+  int negro = 1;
   bool IR_centro = digitalRead(Center);
   bool IR_izquierda = digitalRead(Left);
-  bool IR_derecha = digitalRead(Right)
+  bool IR_derecha = digitalRead(Right);
   Serial.print(IR_izquierda);
   Serial.print(IR_centro);
   Serial.print(IR_derecha);
   Serial.println("");
   
-if ((IR_izquierda == 0) && (IR_centro == 1) && (IR_derecha == 0)){
-  adelante(255);
+if ((IR_izquierda == blanco) && (IR_centro == negro) && (IR_derecha == blanco)){
+  adelante(velocidad);
+  Serial.println("Adelante");
+}
+else if ((IR_izquierda == negro) && (IR_centro == negro) && (IR_derecha == blanco)){
+  girar_derecha(velocidad);
+  Serial.println("derecha");
+}
+else if ((IR_izquierda == negro) && (IR_centro == blanco) && (IR_derecha == blanco)){
+  girar_derecha(velocidad);
+  Serial.println("derecha");
 }
 
-else if ((IR_izquierda == 1) && (IR_centro == 1) && (IR_derecha == 0)){
-  girar_izquierda(255);
+else if ((IR_izquierda == blanco) && (IR_centro == negro) && (IR_derecha == negro)){
+  girar_izquierda(velocidad);
+  Serial.println("Izquierda");
 }
-
-else if ((IR_izquierda == 0) && (IR_centro == 1) && (IR_derecha == 1)){
-  girar_derecha(255);
+else if ((IR_izquierda == blanco) && (IR_centro == blanco) && (IR_derecha == negro)){
+  girar_izquierda(velocidad);
+  Serial.println("Izquierda");
 }
-else if ((IR_izquierda == 0) && (IR_centro == 0) && (IR_derecha == 1)){
-  girar_derecha(255);
-}
-else ((IR_izquierda == 1) && (IR_centro == 1) && (IR_derecha == 1)){
+else if ((IR_izquierda == blanco) && (IR_centro == blanco) && (IR_derecha == blanco)){
   parar();
+  Serial.println("parar");
+}
+else if ((IR_izquierda == negro) && (IR_centro == negro) && (IR_derecha == negro)){
+  adelante(velocidad);
+  Serial.println("Adelante");
 }
 
 }

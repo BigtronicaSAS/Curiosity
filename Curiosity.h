@@ -14,13 +14,13 @@
 class Bot : public PS2X {
   public:
     Bot();
-	void configSeguidor(int Right, int Center, int Left);
-	void seguidor();
+	void seguidor(int Left, int Center, int Right, int velocidad);
 	void adelante(int velocidad);
 	void atras(int velocidad);
 	void girar_derecha(int velocidad);
 	void girar_izquierda(int velocidad);
 	void parar();
+	void pitar();
 	float detectar_obstaculo();
 	void obstaculos(int _distance);
 	void controlPS2(int pin_clock , int pin_command, int pin_attention, int pin_data);
