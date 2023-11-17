@@ -2,7 +2,10 @@
 #define Right    A0
 #define Center   A1
 #define Left     A2
+/*Velocidad Bigbot Magic: 100*/
 #define Velocidad 100
+/*Velocidad Bigbot 4WD: 180*/
+// #define Velocidad 180 
 
 Bot bot;
 

@@ -1,9 +1,16 @@
 #include <Curiosity.h>
-Bot bot;
+#define MaximaDistancia 30
 
+/*Velocidad Bigbot Magic: 255*/
+#define Velocidad 255
+
+/*Velocidad Bigbot 4WD: 180*/
+// #define Velocidad 180 
+
+Bot bot;
 void setup() {
 }
 
 void loop() {
-bot.obstaculos(); 
+bot.obstaculos(MaximaDistancia, Velocidad); 
 }

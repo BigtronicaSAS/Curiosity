@@ -80,38 +80,39 @@ float Bot::detectar_obstaculo(){
 }
 
 
-void Bot::obstaculos(){
+void Bot::obstaculos(int MaximaDistancia, int velocidad){
   long randomNumber;
   int distance = detectar_obstaculo();
   if (distance > 0){
-  if(distance < 30){
-    if(distance > 20){
-      atras(255);
-      delay(200);
-      parar();
-      delay(500);
-    }else{
-      // Generar un número aleatorio para decidir la dirección de giro
-      randomNumber = random(1,3);
-      if (randomNumber == 1){
-        girar_izquierda(255);
-        delay(400);
+    if(distance < MaximaDistancia){
+      if(distance > (MaximaDistancia/2)){
+        atras(velocidad);
+        delay(200);
         parar();
         delay(500);
       }else{
-        girar_derecha(255);
-        delay(400);
-        parar();
-        delay(500);
+        // Generar un número aleatorio para decidir la dirección de giro
+        randomNumber = random(1,3);
+        if (randomNumber == 1){
+          girar_izquierda(velocidad);
+          delay(400);
+          parar();
+          delay(500);
+        }else{
+          girar_derecha(velocidad);
+          delay(400);
+          parar();
+          delay(500);
+        }
+        
       }
-      
+    }else{
+      adelante(velocidad);
     }
-  }else{
-    adelante(255);
+   }
+ else{
+  adelante(velocidad);
   }
- }else{
-  adelante(255);
-}
 }
 
 void Bot::controlPS2(int pin_clock , int pin_command, int pin_attention, int pin_data){
